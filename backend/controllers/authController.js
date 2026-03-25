@@ -6,7 +6,7 @@ const User = require('../models/User');
  * Token expires based on JWT_EXPIRE env variable (default: 7 days).
  */
 const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
+  return jwt.sign({ id }, process.env.JWT_SECRET || 'my_secret_key_123', {
     expiresIn: process.env.JWT_EXPIRE || '7d',
   });
 };
