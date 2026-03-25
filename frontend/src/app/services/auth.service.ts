@@ -9,7 +9,7 @@ import { User, AuthResponse } from '../models/interfaces';
  */
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private readonly API_URL = 'http://localhost:5000/api/auth';
+  private readonly API_URL = '/api/auth';
   private currentUserSubject = new BehaviorSubject<User | null>(null);
 
   /** Observable of the currently logged-in user (null if logged out) */

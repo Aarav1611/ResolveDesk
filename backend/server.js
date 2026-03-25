@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const { startEscalationJob } = require('./services/escalationService');
@@ -24,6 +25,17 @@ app.use('/api/complaints', require('./routes/complaintRoutes'));
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
+// --------------- Serve Angular Frontend in Production ---------------
+// In production, Express serves the built Angular files.
+// The Angular build output is placed in ../frontend/dist/frontend/browser
+const frontendPath = path.join(__dirname, '..', 'frontend', 'dist', 'frontend', 'browser');
+app.use(express.static(frontendPath));
+
+// All non-API routes fall through to Angular's index.html (SPA routing)
+app.get(/^\/(?!api).*/, (req, res) => {
+  res.sendFile(path.join(frontendPath, 'index.html'));
 });
 
 // --------------- Global Error Handler ---------------

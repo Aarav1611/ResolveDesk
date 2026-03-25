@@ -9,7 +9,7 @@ import { ComplaintResponse, StatsResponse } from '../models/interfaces';
  */
 @Injectable({ providedIn: 'root' })
 export class ComplaintService {
-  private readonly API_URL = 'http://localhost:5000/api/complaints';
+  private readonly API_URL = '/api/complaints';
 
   constructor(private http: HttpClient) {}
 
